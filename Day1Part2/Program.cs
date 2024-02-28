@@ -57,7 +57,7 @@ static KeyValuePair<string, int> FindFirstMatch(string item, Dictionary<string, 
     {
         if (item.Contains(entry.Key))
         {
-            if (longestMatch.Key == null || item.IndexOf(entry.Key) < item.IndexOf(longestMatch.Key))
+            if (longestMatch.Key is null || item.IndexOf(entry.Key) < item.IndexOf(longestMatch.Key))
             {
                 longestMatch = entry;
             }
@@ -73,7 +73,7 @@ static KeyValuePair<string, int> FindLastMatch(string item, Dictionary<string, i
     {
         if (item.Contains(entry.Key))
         {
-            if (longestMatch.Key == null || item.LastIndexOf(entry.Key) > item.LastIndexOf(longestMatch.Key))
+            if (longestMatch.Key is null || item.LastIndexOf(entry.Key) > item.LastIndexOf(longestMatch.Key))
             {
                 longestMatch = entry;
             }

@@ -10,7 +10,7 @@ Console.WriteLine(result);
 static int GetSumOfAdjacentNumbers(string[] lines)
 {
     var symbolRegex = new Regex(@"[^.\d]");
-    var symbolAdjacent = new HashSet<(int, int)>();
+    var symbolAdjacent = new Dictionary<(int, int), int>();
 
     for (int i = 0; i < lines.Length; i++)
     {
@@ -26,7 +26,11 @@ static int GetSumOfAdjacentNumbers(string[] lines)
                     int newRow = i + dr;
                     int newCol = j + dc;
 
-                    symbolAdjacent.Add((newRow, newCol));
+                    var position = (newRow, newCol);
+                    if (symbolAdjacent.ContainsKey(position))
+                        symbolAdjacent[position]++;
+                    else
+                        symbolAdjacent[position] = 1;
                 }
             }
         }
@@ -41,9 +45,9 @@ static int GetSumOfAdjacentNumbers(string[] lines)
         {
             for (int j = match.Index; j < match.Index + match.Length; j++)
             {
-                if (symbolAdjacent.Contains((i, j)))
+                if (symbolAdjacent.ContainsKey((i, j)))
                 {
-                    partNumSum += int.Parse(match.Value);
+                    partNumSum += int.Parse(match.Value) * symbolAdjacent[(i, j)];
                     break;
                 }
             }
